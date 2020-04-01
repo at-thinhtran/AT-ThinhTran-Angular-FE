@@ -14,7 +14,16 @@
   }
   .form-group-list {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+  }
+  .form-skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .width-skill {
+    margin-right: 40px;
   }
   .form-control {
     margin-bottom: 20px;

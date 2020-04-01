@@ -1,29 +1,25 @@
 <app-header></app-header>
-<form
-  class="container form-group form-register"
-  #registerForm="ngForm"
-  (ngSubmit)="required(registerForm.value)"
->
+<form class="container form-group form-register" [formGroup]="myForm">
   <div class="form-group-res">
     <h1 class="form-title">Register</h1>
     <label for="">Full name: <span class="valid">*</span></label>
     <input
       class="form-control"
       type="text"
-      name="fullname"
-      #name="ngModel"
-      [(ngModel)]="fullname"
+      formControlName="fullname"
       required
-      minlength="10"
     />
     <div
-      *ngIf="name.invalid && (name.dirty || name.touched)"
+      *ngIf="
+        myForm.controls.fullname.invalid &&
+        (myForm.controls.fullname.dirty || myForm.controls.fullname.touched)
+      "
       class="alert alert-danger"
     >
-      <div *ngIf="name.errors.required">
+      <div *ngIf="myForm.controls.fullname.errors.required">
         *Name is required!
       </div>
-      <div *ngIf="name.errors.minlength">
+      <div *ngIf="myForm.controls.fullname.errors.minlength">
         *Name must be at least 10 characters long!
       </div>
     </div>
@@ -31,129 +27,162 @@
     <input
       class="form-control"
       type="text"
-      name="emailaddress"
-      #email="ngModel"
-      [(ngModel)]="emailaddress"
-      email
+      formControlName="emailaddress"
       required
     />
     <div
-      *ngIf="email.invalid && (email.dirty || email.touched)"
+      *ngIf="
+        myForm.controls.emailaddress.invalid &&
+        (myForm.controls.emailaddress.dirty ||
+          myForm.controls.emailaddress.touched)
+      "
       class="alert alert-danger"
     >
-      <div *ngIf="email.errors.required">
+      <div *ngIf="myForm.controls.emailaddress.errors.required">
         *Email is required!
       </div>
-      <div *ngIf="email.errors.email">
+      <div *ngIf="myForm.controls.emailaddress.errors.email">
         *Email is invalid 'Exe: example@gmail.com'!
       </div>
     </div>
-    <label for="">Password:<span class="valid">*</span></label>
+    <label for="password">Password:<span class="valid">*</span></label>
     <input
       class="form-control"
       type="password"
-      name="password"
-      #pass="ngModel"
-      [(ngModel)]="password"
+      formControlName="pass"
       required
     />
     <div
-      *ngIf="pass.invalid && (pass.dirty || pass.touched)"
+      *ngIf="
+        myForm.controls.pass.invalid &&
+        (myForm.controls.pass.dirty || myForm.controls.pass.touched)
+      "
       class="alert alert-danger"
     >
-      <div *ngIf="pass.errors.required">
+      <div *ngIf="myForm.controls.pass.errors.required">
         *Password is required!
       </div>
     </div>
-    <label for="">Con-Password: <span class="valid">*</span></label>
+    <label for="confirmpassword">Confirm-Password: <span class="valid">*</span></label>
     <input
       class="form-control"
       type="password"
-      name="conpassword"
-      #cpass="ngModel"
-      [(ngModel)]="conpassword"
+      formControlName="confirmpass"
       required
     />
     <div
-      *ngIf="cpass.invalid && (cpass.dirty || cpass.touched)"
+      *ngIf="
+        myForm.controls.confirmpass.invalid &&
+        (myForm.controls.confirmpass.dirty ||
+          myForm.controls.confirmpass.touched)
+      "
       class="alert alert-danger"
     >
-      <div *ngIf="cpass.errors.required">
+      <div *ngIf="myForm.controls.confirmpass.errors.required">
         *Con-password is required!
       </div>
     </div>
-    <div class="form-group" ngModelGroup="address">
+    <div class="alert alert-danger" *ngIf="">
+      *Confirmpass and Password is match!
+    </div>
+    <div class="form-group" formGroupName="address">
       <label for="">Address: <span class="valid">*</span></label>
       <div class="form-group-list">
         <input
           class="form-control col-sm-4 max-width"
           type="text"
-          name="housenumber"
           placeholder="House number"
-          #number="ngModel"
-          [(ngModel)]="housenumber"
+          formControlName="housenumber"
           required
         />
         <input
           class="form-control col-sm-4 max-width"
           type="text"
-          name="street"
+          formControlName="street"
           placeholder="Street"
-          #fstreet="ngModel"
-          [(ngModel)]="street"
           required
         />
         <input
           class="form-control col-sm-4 max-width"
           type="text"
-          name="city"
+          formControlName="city"
           placeholder="City"
-          #fcity="ngModel"
-          [(ngModel)]="city"
           required
         />
       </div>
       <div class="form-group-list">
         <div class="col-sm-4 max-width">
           <div
-            *ngIf="number.invalid && (number.dirty || number.touched)"
+            *ngIf="
+              myForm.get('address.housenumber').invalid &&
+              (myForm.get('address.housenumber').dirty ||
+              myForm.get('address.housenumber').touched)
+            "
             class="alert alert-danger"
           >
-            <div *ngIf="number.errors.required">
+            <div *ngIf="myForm.get('address.housenumber').errors.required">
               *House number is required!
             </div>
           </div>
         </div>
         <div class="col-sm-4 max-width">
           <div
-            *ngIf="fstreet.invalid && (fstreet.dirty || fstreet.touched)"
+            *ngIf="
+              myForm.get('address.street').invalid &&
+              (myForm.get('address.street').dirty || myForm.get('address.street').touched)
+            "
             class="alert alert-danger"
           >
-            <div *ngIf="fstreet.errors.required">
+            <div *ngIf="myForm.get('address.street').errors.required">
               *Street is required!
             </div>
           </div>
         </div>
         <div class="col-sm-4 max-width">
           <div
-            *ngIf="fcity.invalid && (fcity.dirty || fcity.touched)"
+            *ngIf="
+              myForm.get('address.city').invalid &&
+              (myForm.get('address.city').dirty || myForm.get('address.city').touched)
+            "
             class="alert alert-danger"
           >
-            <div *ngIf="fcity.errors.required">
+            <div *ngIf="myForm.get('address.city').errors.required">
               *City is required!
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="valiable-text-again" *ngIf="">
-      *Password and Con-Password does not match.
+    <div class="form-group" formArrayName="skills">
+      <label for="">Skill: <span class="valid">*</span></label>
+      <div class="form-skill-list" *ngFor="let skill of skillFroms.controls; let i=index" [formGroupName]="i">
+        <input
+          class="form-control col-sm-4 max-width width-skill"
+          type="text"
+          formControlName="skills"
+          required
+        />
+      </div>
+      <!-- <div class="col-sm-4 max-width">
+        <div
+          *ngIf="
+            myForm.controls.skills.invalid &&
+            (myForm.controls.skills.dirty || myForm.controls.skills.touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="myForm.controls.skills.errors.required">
+            *Skill is required!
+          </div>
+        </div>
+      </div> -->
+      <button type="button" class="btn btn-primary" (click)="addskills()">+ add more</button>
     </div>
+    <!-- <div class="valiable-text-again" *ngIf="">
+      *Password and Con-Password does not match.
+    </div> -->
     <div class="form-btn-submit">
-      <button
-        class="btn btn-primary btn-submit"
-        [disabled]="registerForm.invalid"
-      >
+      <button class="btn btn-primary btn-submit" [disabled]="myForm.invalid">
         Submit
       </button>
     </div>
