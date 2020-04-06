@@ -7,16 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular-ThinhTran';
-
-  fullname = '';
-  emailaddress = '';
-  password = '';
-  conpassword = '';
-  housenumber = '';
-  street = '';
-  city = '';
-
-  required(requiredForm) {
-    console.log(requiredForm);
-  }
 }
