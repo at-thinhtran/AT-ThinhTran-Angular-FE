@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { HomeComponent } from './home/home.component';
@@ -41,6 +42,27 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+import { Routes, RouterModule, PreloadAllModules, NoPreloading } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { NewsComponent } from './news/news.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'news',
+    component: NewsComponent
+  },
+  {
+    path: 'news/:id',
+    component: NewsComponent
   },
 ];
 
@@ -52,4 +74,8 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
+=======
+  imports: [RouterModule.forRoot(routes, {})],
+  exports: [RouterModule]
+})
 export class AppRoutingModule { }
