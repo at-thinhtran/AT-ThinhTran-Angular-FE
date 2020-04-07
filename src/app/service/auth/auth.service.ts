@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService, ENDPOINT } from '../api/api.service';
 
 
 @Injectable({
@@ -12,7 +13,6 @@ export class AuthService {
 
   mostrarMenuEmitter = new EventEmitter<boolean>();
 
-  constructor(private router: Router) { }
 
   // fazerLogin(user: User){
 
@@ -36,6 +36,22 @@ export class AuthService {
   //   return this.userAutenticado;
   // }
 
+  constructor(private apiService: ApiService, private router: Router) { }
+
+  getAllUser() {
+    this.apiService.get(ENDPOINT.users, { page: 2 }).subscribe(e => {
+      console.log(e);
+    })
+    this.apiService.getAssets('assets/data/db.json').subscribe(e => {
+      console.log(e);
+    })
+  }
+
+  addUser(object: Object) {
+    this.apiService.post(ENDPOINT.users, object).subscribe(e => {
+      console.log(e);
+    })
+  }
 
   login() {
     this.isAuthorized = true;
