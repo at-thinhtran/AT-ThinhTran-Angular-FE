@@ -2,15 +2,9 @@ import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { HomeComponent } from './home/home.component';
-
-import { AccountComponent } from './account/account.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile.component';
-import { AuthGuard } from './auth/auth.guard';
-import { LoginComponent } from './login/login.component';
-import { CheckGuard } from '../app/check/check.guard';
-import { ProfileResolver } from './profile/profile.resolve';
+import { LoginComponent } from './component/login/login.component';
+import { NewsComponent } from './component/news/news.component';
+import { HomeComponent } from './component/home/home.component';
 
 const routes: Routes = [
   {
@@ -19,42 +13,11 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    component: AccountComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent
-      },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-        canDeactivate: [CheckGuard],
-        resolve: [ProfileResolver]
-      }
-    ]
+    loadChildren: () => import('../app/account/account.module').then(m => m.AccountModule)
   },
   {
     path: 'login',
     component: LoginComponent
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-import { Routes, RouterModule, PreloadAllModules, NoPreloading } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { NewsComponent } from './news/news.component';
-
-const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
   },
   {
     path: 'news',
@@ -64,6 +27,15 @@ const routes: Routes = [
     path: 'news/:id',
     component: NewsComponent
   },
+  {
+    path: 'lazy',
+    loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
@@ -74,8 +46,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-=======
-  imports: [RouterModule.forRoot(routes, {})],
-  exports: [RouterModule]
-})
 export class AppRoutingModule { }
