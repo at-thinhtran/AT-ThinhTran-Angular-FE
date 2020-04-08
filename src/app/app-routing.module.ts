@@ -17,11 +17,11 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    loadChildren: () => import('../app/component/login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'news',
-    component: NewsComponent
+    loadChildren: () => import('../app/component/news/news.module').then(m => m.NewsModule)
   },
   {
     path: 'news/:id',

@@ -10,6 +10,8 @@ import { LazyComponent } from './lazy.component';
   imports: [
     CommonModule,
     LazyRoutingModule,
-  ]
+  ],
+  providers: [],
+  bootstrap: [LazyComponent]
 })
 export class LazyModule { }

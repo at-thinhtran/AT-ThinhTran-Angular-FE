@@ -8,9 +8,6 @@ import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 
 import { HomeComponent } from './component/home/home.component';
-import { LoginComponent } from './component/login/login.component';
-import { NewsComponent } from './component/news/news.component';
-import { AccountModule } from './account/account.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiService } from './service/api/api.service';
 import { DemoInterceptor } from './interceptor/demo.interceptor';
@@ -21,9 +18,7 @@ import { LazyModule } from './lazy/lazy.module';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent,
-    LoginComponent,
-    NewsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +26,6 @@ import { LazyModule } from './lazy/lazy.module';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AccountModule,
     LazyModule
   ],
   providers: [

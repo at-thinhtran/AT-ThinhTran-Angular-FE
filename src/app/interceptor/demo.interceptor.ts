@@ -8,8 +8,10 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class DemoInterceptor implements HttpInterceptor {
 
-  intercept(req: HttpRequest<any>, next: HttpHandler):
-    Observable<HttpEvent<any>> {
-    return next.handle(req);
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const authRq = req.clone({
+      headers: req.headers.set('Authorization', 'thekingfe')
+    });
+    return next.handle(authRq);
   }
 }

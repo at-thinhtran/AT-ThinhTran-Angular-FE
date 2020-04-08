@@ -1,42 +1,41 @@
-import { environment } from './../../../environments/environment';
-import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-
-
+import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { from, Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 export const ENDPOINT = {
-  users: 'users'
+  users: 'users',
+  events: 'events'
 };
 
-export const API_DOMAIN = environment.production;
+export const API_DOMAIN = environment.api;
 
 @Injectable({
   providedIn: 'root'
 })
 
-
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
+
   /**
     * Get api
     * @param url : path from ENDPOINT
     * @param params : ex: {key: value}
     */
   get(url: string, params?: any): Observable<any> {
-    return this.http.get(API_DOMAIN + url, {
-      params: params
-    }).pipe(
+    return this.http.get(API_DOMAIN + url, { params: params }).pipe(
       catchError(this.handleError)
     );
   }
 
   /**
-  * Post api
-  * @param url : path from ENDPOINT
-  * @param params : ex: {key: value}
+   * Post api
+   * @param url : path from ENDPOINT
+   * @param params : ex: {key: value}
   */
   post(url: string, params?: any): Observable<any> {
     return this.http.post(API_DOMAIN + url, params).pipe(
@@ -66,11 +65,11 @@ export class ApiService {
   }
 
   /**
-  * Get api with full response
-  * include: headers, body, ...
-  * @param url : string
+    * Get api with full response
+    * include: headers, body, ...
+    * @param url : string
   */
-  getConfigResponse(url: string): Observable<HttpResponse<any>> {
+  getConfigResponse(url: string): Observable<any> {
     return this.http.get(API_DOMAIN + url, { observe: 'response' }).pipe(
       catchError(this.handleError)
     );
