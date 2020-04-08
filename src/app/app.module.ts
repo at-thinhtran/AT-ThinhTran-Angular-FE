@@ -4,38 +4,33 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './component/header/header.component';
+import { FooterComponent } from './component/footer/footer.component';
 
-import { HomeComponent } from './home/home.component';
-import { AccountComponent } from './account/account.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile.component';
-import { LoginComponent } from './login/login.component';
-
-import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './home/home.component';
-import { NewsComponent } from './news/news.component';
+import { HomeComponent } from './component/home/home.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApiService } from './service/api/api.service';
+import { DemoInterceptor } from './interceptor/demo.interceptor';
+import { LazyModule } from './lazy/lazy.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent,
-    AccountComponent,
-    DashboardComponent,
-    ProfileComponent,
-    LoginComponent,
-    NewsComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    LazyModule
   ],
-  providers: [],
+  providers: [
+    ApiService,
+    { provide: HTTP_INTERCEPTORS, useClass: DemoInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 
